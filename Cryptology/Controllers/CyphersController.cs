@@ -72,17 +72,51 @@ namespace Cryptology.Controllers
             }
             else if (action == "OpenFile")
             {
-                var bruteForceResponse = await _caesarService.OpenFromFile(caesar.FileToEncrypt);
+                var openfileResponse = await _caesarService.OpenFromFile(caesar.OpenFile);
 
-                if (bruteForceResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                if (openfileResponse.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    TempData["AlertMessage"] = bruteForceResponse.Description;
-                    TempData["ResponseStatus"] = bruteForceResponse.StatusCode.ToString();
-                    return View("CaesarCypher", caesar);
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = openfileResponse.StatusCode.ToString();
+                    return View("CaesarCypher", openfileResponse.Data);
                 }
                 else
                 {
-                    TempData["AlertMessage"] = bruteForceResponse.Description;
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "SaveFile")
+            {
+                var saveFileResponse = await _caesarService.SaveToFile(caesar);
+
+                if (saveFileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = saveFileResponse.StatusCode.ToString();
+                    string filePath = "path_to_save_file.txt";
+                    byte[] fileContents = await System.IO.File.ReadAllBytesAsync(filePath);
+                    return File(fileContents, "text/plain", $"{DateTime.UtcNow} - result.txt");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "FrequencyTable")
+            {
+                var frequencyTableResponse = await _caesarService.FrequencyTable(caesar);
+
+                if (frequencyTableResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = frequencyTableResponse.StatusCode.ToString();
+                    return View("CaesarCypher", frequencyTableResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
                     TempData["ResponseStatus"] = "Error";
                 }
             }

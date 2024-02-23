@@ -33,7 +33,13 @@
                 <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
                 <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
                 <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
-                <input asp-for="FileToEncrypt" type="file" name="action" value="OpenFile" class="btn btn-outline-primary mt-3">
+                <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="margin-left: 25px;">
+                <button type="submit" name="action" value="OpenFile"
+                        class="btn btn-outline-secondary mt-3 mr-2" style="margin-left: 512px;">Confirm File</button>
+                <button type="submit" name="action" value="SaveFile"
+                        class="btn btn-outline-secondary" style="margin-left: 412px; margin-top: -65px;">Save File</button>
+                <button type="submit" name="action" value="FrequencyTable"
+                        class="btn btn-outline-secondary" style="margin-left: 302px; margin-top: -115px;">Frequency</button>
             </form>
         </div>
 
@@ -47,7 +53,7 @@
                         {
                             if (result == Model.Text)
                             {
-                                <li class="text-danger">@result</li>
+                                <li class="text-danger">@result - Answer</li>
                             }
                             else
                             {
@@ -58,5 +64,32 @@
                 </div>
             }
         </div>
+
+        <div class="col-md-3">
+            @if (Model != null && Model.FrequencyTable.Any())
+            {
+                <div>
+                    <h2>Frequency Table:</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Character</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var kvp in Model.FrequencyTable)
+                            {
+                                <tr>
+                                    <td>@kvp.Key</td>
+                                    <td>@kvp.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
     </div>
 </div>

@@ -1,5 +1,10 @@
 using Cryptology.BLL;
+using Cryptology.Domain.Enum;
+using Cryptology.Domain.Response;
 using Cryptology.Domain.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using System.Text;
 
 namespace Cryptology.Tests
 {
@@ -122,6 +127,58 @@ namespace Cryptology.Tests
             Assert.IsTrue(bruteForce2.Data.BruteForced.Contains(decrypted2.Data.Decrypted));
             Assert.IsTrue(bruteForce3.Data.BruteForced.Contains(decrypted3.Data.Decrypted));
             Assert.IsTrue(bruteForce4.Data.BruteForced.Contains(decrypted4.Data.Decrypted));
+        }
+
+        [TestMethod]
+        public async Task OpenFromFileTest()
+        {
+            string fileContent = "1;\nabcd";
+            byte[] fileBytes = Encoding.UTF8.GetBytes(fileContent);
+
+            IFormFile file = new FormFile(new MemoryStream(fileBytes), 0, fileBytes.Length, "file", "file.txt")
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = "text/plain"
+            };
+
+            IFormFile nullFile = null;
+            var nullCaesarService = new CaesarService();
+            BaseResponse<CaesarViewModel> nullResponse = await nullCaesarService.OpenFromFile(nullFile);
+
+            var caesarService = new CaesarService();
+            BaseResponse<CaesarViewModel> result = await caesarService.OpenFromFile(file);
+
+            Assert.IsNotNull(result.Data);
+            Assert.AreEqual(1, result.Data.Key);
+            Assert.AreEqual("abcd", result.Data.Text);            
+
+            Assert.AreEqual(StatusCode.NotFound, nullResponse.StatusCode);
+            Assert.IsNull(nullResponse.Data);
+        }
+
+
+        [TestMethod]
+        public async Task FrequencyTableTest()
+        {
+            var response = await _caesarService.FrequencyTable(caesar1);
+            var frequencyDictionary = new Dictionary<char, int>()
+            {
+                { 'a', 1 },
+                { 'b', 1 },
+                { 'c', 1 }
+            };
+
+            CollectionAssert.AreEqual(response.Data.FrequencyTable, frequencyDictionary);
+        }
+
+        [TestMethod]
+        public async Task SaveToFileTest()
+        {
+            var saved = await _caesarService.SaveToFile(caesar1);
+            
+            Assert.IsNotNull(saved);
+            Assert.AreEqual(saved.Data.Key, caesar1.Key);
+            Assert.AreEqual(saved.Data.Text, caesar1.Text);
         }
     }
 }
