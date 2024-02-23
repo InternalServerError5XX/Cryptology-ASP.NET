@@ -1,0 +1,6 @@
+Key - 0;
+Text - 
+
+Encrypted - 
+Decrypted - 
+

@@ -354,6 +354,15 @@ namespace Cryptology.BLL
                     };
                 }
 
+                if (!file.ContentType.Equals("text/plain", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "Invalid file type.",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
                 using (StreamReader reader = new StreamReader(file.OpenReadStream()))
                 {
                     List<string> lines = new List<string>();
@@ -366,8 +375,9 @@ namespace Cryptology.BLL
 
                     if (lines.Count >= 2)
                     {
-                        int key;
-                        if (int.TryParse(lines[0], out key))
+                        string numericPart = new string(lines[0].Where(char.IsDigit).ToArray());
+
+                        if (int.TryParse(numericPart, out int key))
                         {
                             CaesarViewModel caesar = new CaesarViewModel
                             {
@@ -394,7 +404,7 @@ namespace Cryptology.BLL
                     {
                         return new BaseResponse<CaesarViewModel>()
                         {
-                            Description = "Insufficient lines in the file.",
+                            Description = "Too few lines in the file.",
                             StatusCode = StatusCode.NotFound
                         };
                     }
@@ -409,6 +419,130 @@ namespace Cryptology.BLL
                 };
             }
         }
+
+        public async Task<BaseResponse<CaesarViewModel>> FrequencyTable(CaesarViewModel caesar)
+        {
+            try
+            {
+                if (caesar == null)
+                {
+                    return new BaseResponse<CaesarViewModel>
+                    {
+                        Description = "Model is null",
+                        StatusCode = Domain.Enum.StatusCode.NotFound
+                    };
+                }
+
+                if (caesar.Text == null)
+                {
+                    return new BaseResponse<CaesarViewModel>
+                    {
+                        Description = "Text is null",
+                        StatusCode = Domain.Enum.StatusCode.NotFound
+                    };
+                }
+
+                var frequencies = new Dictionary<char, int>();
+
+                foreach (char c in caesar.Text.ToLower())
+                {
+                    if (char.IsLetter(c))
+                    {
+                        if (frequencies.ContainsKey(c))
+                            frequencies[c]++;
+                        else
+                            frequencies[c] = 1;
+                    }
+                }
+
+                caesar.FrequencyTable = frequencies.ToDictionary(
+                    table => table.Key,
+                    table => table.Value
+                );
+
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Data = caesar,
+                    Description = "Text Analyzing successfully",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Description = $"[AnalyzeText] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<CaesarViewModel>> SaveToFile(CaesarViewModel caesar)
+        {
+            try
+            {
+                if (caesar == null)
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "CaesarViewModel is null",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                StringBuilder contentBuilder = new StringBuilder();
+
+                contentBuilder.AppendLine($"Key - {caesar.Key};");
+                contentBuilder.AppendLine($"Text - {caesar.Text}\n");
+                contentBuilder.AppendLine($"Encrypted - {caesar.Encrypted}");
+                contentBuilder.AppendLine($"Decrypted - {caesar.Decrypted}\n");
+
+                var bruteForceResponse = await BruteForce(caesar);
+                var frequencyTableResponse = await FrequencyTable(caesar);
+
+                if (caesar.BruteForced != null && caesar.BruteForced.Count > 0)
+                {
+                    contentBuilder.AppendLine("Brute Force Results:");
+                    foreach (var result in caesar.BruteForced)
+                    {
+                        if (result == caesar.Text)
+                        {
+                            contentBuilder.AppendLine($"{result} - Answer");
+                        }
+                        contentBuilder.AppendLine(result);
+                    }
+                }
+
+                if (caesar.FrequencyTable != null && caesar.FrequencyTable.Count > 0)
+                {
+                    contentBuilder.AppendLine("\nFrequency Table Results:");
+
+                    foreach (var res in caesar.FrequencyTable)
+                    {
+                        contentBuilder.AppendLine($"{res.Key}: {res.Value}");
+                    }
+                }
+
+                string filePath = "path_to_save_file.txt";
+
+                await File.WriteAllTextAsync(filePath, contentBuilder.ToString());
+
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Data = caesar,
+                    Description = "File saved successfully",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Description = $"[SaveToFile] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }       
 
         public bool IsEnglish(string text)
         {
