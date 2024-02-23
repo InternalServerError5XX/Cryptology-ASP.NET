@@ -1,0 +1,62 @@
+﻿@using Cryptology.Domain.Enum;
+@using Cryptology.Domain.ViewModels;
+@model CaesarViewModel;
+
+@{
+    ViewData["Title"] = "Caesar Cypher";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Caesar Cypher</h1>
+
+            <form asp-controller="Cyphers" asp-action="CaesarCypher" enctype="multipart/form-data">
+                <div class="form-group mt-3">
+                    <label asp-for="Key">Key</label>
+                    <input asp-for="Key" type="number" class="form-control" value="@Model.Key" required>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Text">Text</label>
+                    <input asp-for="Text" type="text" class="form-control" value="@Model.Text">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Encrypted">Encrypted</label>
+                    <input asp-for="Encrypted" type="text" class="form-control" value="@Model.Encrypted">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Decrypted">Decrypted</label>
+                    <input asp-for="Decrypted" type="text" class="form-control" value="@Model.Decrypted" readonly>
+                </div>
+
+                <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
+                <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
+                <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
+                <input asp-for="FileToEncrypt" type="file" name="action" value="OpenFile" class="btn btn-outline-primary mt-3">
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            @if (Model.BruteForced != null && Model.BruteForced.Any())
+            {
+                <div>
+                    <h2>Brute Forced Results:</h2>
+                    <ul>
+                        @foreach (var result in Model.BruteForced)
+                        {
+                            if (result == Model.Text)
+                            {
+                                <li class="text-danger">@result</li>
+                            }
+                            else
+                            {
+                                <li>@result</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</div>

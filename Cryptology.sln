@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptology", "Cryptology\Cryptology.csproj", "{674A62F1-E514-4C9A-B5ED-B82555D56DA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{093294C1-0436-4D28-952F-1A09C2C7B34E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptology.Domain", "Cryptology.Domain\Cryptology.Domain.csproj", "{7E6D5E01-0950-4C29-A875-2A52740DDE3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{44D3B122-20FD-41C9-BF05-36C7222A2211}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptology.BLL", "Cryptology.BLL\Cryptology.BLL.csproj", "{B251F083-AE58-4EB4-BB44-407BB2DCFD4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E40C1938-D6F4-45C2-8F7F-2B630D2B8CF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptology.Tests", "Cryptology.Tests\Cryptology.Tests.csproj", "{872E0662-7857-4D19-A51F-0ECC70942B76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{674A62F1-E514-4C9A-B5ED-B82555D56DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{674A62F1-E514-4C9A-B5ED-B82555D56DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{674A62F1-E514-4C9A-B5ED-B82555D56DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{674A62F1-E514-4C9A-B5ED-B82555D56DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E6D5E01-0950-4C29-A875-2A52740DDE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E6D5E01-0950-4C29-A875-2A52740DDE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E6D5E01-0950-4C29-A875-2A52740DDE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E6D5E01-0950-4C29-A875-2A52740DDE3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B251F083-AE58-4EB4-BB44-407BB2DCFD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B251F083-AE58-4EB4-BB44-407BB2DCFD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B251F083-AE58-4EB4-BB44-407BB2DCFD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B251F083-AE58-4EB4-BB44-407BB2DCFD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872E0662-7857-4D19-A51F-0ECC70942B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872E0662-7857-4D19-A51F-0ECC70942B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872E0662-7857-4D19-A51F-0ECC70942B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872E0662-7857-4D19-A51F-0ECC70942B76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E6D5E01-0950-4C29-A875-2A52740DDE3D} = {093294C1-0436-4D28-952F-1A09C2C7B34E}
+		{B251F083-AE58-4EB4-BB44-407BB2DCFD4B} = {44D3B122-20FD-41C9-BF05-36C7222A2211}
+		{872E0662-7857-4D19-A51F-0ECC70942B76} = {E40C1938-D6F4-45C2-8F7F-2B630D2B8CF5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C56033F-C6DA-4302-A91C-952BC148696E}
+	EndGlobalSection
+EndGlobal
