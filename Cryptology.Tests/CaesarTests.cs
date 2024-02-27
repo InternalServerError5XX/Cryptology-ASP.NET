@@ -42,6 +42,10 @@ namespace Cryptology.Tests
                 Key = 10,
                 Text = "¿·¬, - “ÂÒÚ."
             };
+
+            var content = Encoding.UTF8.GetBytes("Mock image content");
+            var ms = new MemoryStream(content);
+            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
         }
 
         [TestMethod]
@@ -179,6 +183,76 @@ namespace Cryptology.Tests
             Assert.IsNotNull(saved);
             Assert.AreEqual(saved.Data.Key, caesar1.Key);
             Assert.AreEqual(saved.Data.Text, caesar1.Text);
+        }
+
+        [TestMethod]
+        public async Task ReadImageTest()
+        {
+            var content = Encoding.UTF8.GetBytes("Image content");
+            var ms = new MemoryStream(content);
+            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
+
+            byte[] result = await _caesarService.ReadImageBytes(imageFile);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Length > 0);
+        }
+
+        [TestMethod]
+        public async Task SaveImageTest()
+        {
+            string outputPath = "D:\\ÃŒ \\1\\test-output.jpg";
+            byte[] testData = Encoding.UTF8.GetBytes("Test data");
+
+            await _caesarService.SaveImage(testData, outputPath);
+
+            Assert.IsTrue(File.Exists(outputPath));
+            File.Delete(outputPath);
+        }
+
+        [TestMethod]
+        public async Task EncryptImageTest()
+        {
+            var content = Encoding.UTF8.GetBytes("Image content");
+            var ms = new MemoryStream(content);
+            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
+
+            CaesarViewModel caesar = new CaesarViewModel
+            {
+                InputImage = imageFile,
+                Key = 3
+            };
+
+            var response = await _caesarService.EncryptImage(caesar);
+
+            Assert.AreEqual(StatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(response.Data);
+            Assert.IsTrue(File.Exists("D:\\ÃŒ \\1\\encrypted.jpg"));
+
+            File.Delete("D:\\ÃŒ \\1\\encrypted.jpg");
+        }
+
+        [TestMethod]
+        public async Task DecryptImageTest()
+        {
+            var content = Encoding.UTF8.GetBytes("Image content");
+            var ms = new MemoryStream(content);
+            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
+
+            CaesarViewModel caesar = new CaesarViewModel
+            {
+                EncryptedImage = imageFile,
+                Key = 3
+            };
+
+            var decryptResponse = await _caesarService.DecryptImage(caesar);  
+            caesar.DecryptedImage = decryptResponse.Data.EncryptedImage;
+
+            Assert.AreEqual(StatusCode.OK, decryptResponse.StatusCode);
+            Assert.IsNotNull(caesar.DecryptedImage);
+            Assert.IsTrue(File.Exists("D:\\ÃŒ \\1\\decrypted.jpg"));
+
+            File.Delete("D:\\ÃŒ \\1\\decrypted.jpg");
         }
     }
 }

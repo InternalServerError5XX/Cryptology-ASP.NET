@@ -120,6 +120,38 @@ namespace Cryptology.Controllers
                     TempData["ResponseStatus"] = "Error";
                 }
             }
+            else if (action == "EncryptImage")
+            {
+                var encryptImageResponse = await _caesarService.EncryptImage(caesar);
+
+                if (encryptImageResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["ImageAlertMessage"] = encryptImageResponse.Description;
+                    TempData["ImageResponseStatus"] = encryptImageResponse.StatusCode.ToString();
+                    return View("CaesarCypher", encryptImageResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = encryptImageResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "DecryptImage")
+            {
+                var decryptImageResponse = await _caesarService.DecryptImage(caesar);
+
+                if (decryptImageResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["ImageAlertMessage"] = decryptImageResponse.Description;
+                    TempData["ImageResponseStatus"] = decryptImageResponse.StatusCode.ToString();
+                    return View("CaesarCypher", decryptImageResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = decryptImageResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
 
             return View(caesar);
         }

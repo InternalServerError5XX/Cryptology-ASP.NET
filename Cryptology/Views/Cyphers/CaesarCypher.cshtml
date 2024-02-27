@@ -40,6 +40,21 @@
                         class="btn btn-outline-success" style="margin-left: 412px; margin-top: -65px;">Save File</button>
                 <button type="submit" name="action" value="FrequencyTable"
                         class="btn btn-outline-secondary" style="margin-left: 302px; margin-top: -115px;">Frequency</button>
+
+                <div style="margin-top: -25px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; flex-direction: column;">
+                        <label>Original Image</label>
+                        <input asp-for="InputImage" type="file" class="btn btn-outline-primary" style="width: 275px;">
+                        <button type="submit" name="action" value="EncryptImage" class="btn btn-outline-primary" style="margin-top: 10px;">Encrypt</button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column;">
+                        <label>Encrypted Image</label>
+                        <input asp-for="EncryptedImage" type="file" class="btn btn-primary" style="width: 320px;">
+                        <button type="submit" name="action" value="DecryptImage" class="btn btn-primary" style="margin-top: 10px;">Decrypt</button>
+                    </div>
+                </div>
+
             </form>
         </div>
 
@@ -65,7 +80,7 @@
             }
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4 mt-5">
             @if (Model != null && Model.FrequencyTable.Any())
             {
                 <div>
