@@ -20,5 +20,8 @@ namespace Cryptology.Domain.ViewModels
         public IFormFile? SaveFile { get; set; }
         public List<string> BruteForced { get; set; } = new List<string>();
         public Dictionary<char, int>? FrequencyTable { get; set; } = new Dictionary<char, int>();
+        public IFormFile? InputImage { get; set; }
+        public IFormFile? EncryptedImage { get; set; }
+        public IFormFile? DecryptedImage { get; set; }
     }
 }

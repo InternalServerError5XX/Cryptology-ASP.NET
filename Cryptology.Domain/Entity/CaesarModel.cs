@@ -18,5 +18,8 @@ namespace Cryptology.Domain.Entity
         public IFormFile? SaveFile { get; set; }
         public List<string?> BruteForced { get; set; }
         public Dictionary<char, int>? FrequencyTable { get; set; }
+        public IFormFile? InputImage { get; set; }
+        public IFormFile? EncryptedImage { get; set;  }
+        public IFormFile? DecryptedImage { get; set; }
     }
 }

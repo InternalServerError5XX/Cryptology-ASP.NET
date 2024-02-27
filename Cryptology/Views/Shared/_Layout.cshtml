@@ -22,17 +22,38 @@
                 </button>
             </div>
         </nav>
+
+        <script>
+            function closeAlert(alertId) {
+                setTimeout(function () {
+                    $(alertId).alert('close');
+                }, 3000);
+            }
+        </script>
     </header>
 
     @{
         var alertMessage = TempData["AlertMessage"];
         var responseStatus = TempData["ResponseStatus"];
+        var imageAlertMessage = TempData["ImageAlertMessage"];
+        var imageResponseStatus = TempData["ImageResponseStatus"];      
 
-        if (responseStatus == "Error")
+        @if (responseStatus == "Error")
         {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
                 @alertMessage
             </div>
+        }
+
+        @if (imageResponseStatus == StatusCode.OK.ToString())
+        {
+            <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+                @imageAlertMessage
+            </div>
+
+            <script>
+                closeAlert("#successAlert");
+            </script>
         }
     }
 

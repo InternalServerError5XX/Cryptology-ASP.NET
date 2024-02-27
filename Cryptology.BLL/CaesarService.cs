@@ -542,6 +542,103 @@ namespace Cryptology.BLL
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
+
+        public async Task<BaseResponse<CaesarViewModel>> EncryptImage(CaesarViewModel caesar)
+        {
+            try
+            {
+                if (caesar == null)
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "CaesarViewModel is null",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                if (caesar.InputImage == null)
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "Image is null",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                byte[] imageBytes = await ReadImageBytes(caesar.InputImage);
+                for (int i = 0; i < imageBytes.Length; i++)
+                {
+                    imageBytes[i] = (byte)(imageBytes[i] + caesar.Key);
+                }
+
+                string outputPath = "D:\\МОК\\1\\encrypted.jpg";
+                await SaveImage(imageBytes, outputPath);
+
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Data = caesar,
+                    Description = $"File encrypted to {outputPath}",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Description = $"[EncryptImage] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<CaesarViewModel>> DecryptImage(CaesarViewModel caesar)
+        {
+            try
+            {
+                if (caesar == null)
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "CaesarViewModel is null",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                if (caesar.EncryptedImage == null)
+                {
+                    return new BaseResponse<CaesarViewModel>()
+                    {
+                        Description = "Encrypted Image is null",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                byte[] encryptedImageBytes = await ReadImageBytes(caesar.EncryptedImage);
+
+                for (int i = 0; i < encryptedImageBytes.Length; i++)
+                {
+                    encryptedImageBytes[i] = (byte)(encryptedImageBytes[i] - caesar.Key);
+                }
+
+                string outputPath = "D:\\МОК\\1\\decrypted.jpg";
+                await SaveImage(encryptedImageBytes, outputPath);
+
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Data = caesar,
+                    Description = $"File decrypted to {outputPath}",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CaesarViewModel>()
+                {
+                    Description = $"[DecryptImage] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }       
 
         public bool IsEnglish(string text)
@@ -552,6 +649,23 @@ namespace Cryptology.BLL
         public bool IsUkrainian(string text)
         {
             return System.Text.RegularExpressions.Regex.IsMatch(text, @"^[а-яА-ЯіІїЇєЄґҐ\s.,-]+$");
+        }
+
+        public async Task<byte[]> ReadImageBytes(IFormFile imageFile)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await imageFile.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
+        public async Task SaveImage(byte[] encryptedImageBytes, string outputPath)
+        {
+            using (FileStream fileStream = new FileStream(outputPath, FileMode.Create))
+            {
+                await fileStream.WriteAsync(encryptedImageBytes, 0, encryptedImageBytes.Length);
+            }
         }
     }
 }
