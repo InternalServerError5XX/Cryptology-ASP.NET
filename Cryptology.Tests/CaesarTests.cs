@@ -188,7 +188,7 @@ namespace Cryptology.Tests
         [TestMethod]
         public async Task ReadImageTest()
         {
-            var content = Encoding.UTF8.GetBytes("Mock image content");
+            var content = Encoding.UTF8.GetBytes("Image content");
             var ms = new MemoryStream(content);
             IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
 
@@ -213,7 +213,7 @@ namespace Cryptology.Tests
         [TestMethod]
         public async Task EncryptImageTest()
         {
-            var content = Encoding.UTF8.GetBytes("Mock image content");
+            var content = Encoding.UTF8.GetBytes("Image content");
             var ms = new MemoryStream(content);
             IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
 
@@ -235,7 +235,7 @@ namespace Cryptology.Tests
         [TestMethod]
         public async Task DecryptImageTest()
         {
-            var content = Encoding.UTF8.GetBytes("Mock image content");
+            var content = Encoding.UTF8.GetBytes("Image content");
             var ms = new MemoryStream(content);
             IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
 
