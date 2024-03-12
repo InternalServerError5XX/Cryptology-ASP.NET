@@ -1,4 +1,24 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    updateVisibility($('#KeyType').val());
 
-// Write your JavaScript code.
+    $('#KeyType').change(function () {
+        var selectedKeyType = $(this).val();
+        updateVisibility(selectedKeyType);
+    });
+
+    function updateVisibility(selectedKeyType) {
+        $('#linearCoefficients').hide();
+        $('#nonlinearCoefficients').hide();
+        $('#password').hide();
+
+        if (selectedKeyType === 'LinearEquation') {
+            $('#linearCoefficients').show();
+        } else if (selectedKeyType === 'NonlinearEquation') {
+            $('#nonlinearCoefficients').show();
+        } else if (selectedKeyType === 'Password') {
+            $('#password').show();
+        }
+
+        $('#SelectedKeyType').val(selectedKeyType);
+    }
+});
