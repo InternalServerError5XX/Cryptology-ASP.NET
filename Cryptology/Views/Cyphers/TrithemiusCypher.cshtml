@@ -1,0 +1,144 @@
+﻿@using Cryptology.Domain.Enum;
+@using Cryptology.Domain.EnumHelper;
+@using Cryptology.Domain.ViewModels;
+@model TrithemiusViewModel;
+
+@{
+    ViewData["Title"] = "Trithemius Cipher";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Trithemius Cipher</h1>
+
+            <form asp-controller="Cyphers" asp-action="TrithemiusCypher" id="cipherForm" enctype="multipart/form-data">
+                <div class="form-group mt-3">
+                    <input asp-for="KeyType" type="hidden" id="SelectedKeyType" />
+                    <label asp-for="KeyType">Key Type</label>
+                    <select asp-for="KeyType" class="form-control" required>
+                        <option>Select the key type...</option>
+                        @foreach (KeyType option in Enum.GetValues(typeof(KeyType)))
+                        {
+                            <option value="@option">@EnumHelper.GetDisplayName(option)</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3" id="linearCoefficients" style="display: none;">
+                    <div class="form-group">
+                        <label asp-for="LinearCoefficientA">Coefficient A</label>
+                        <input asp-for="LinearCoefficientA" type="number" value="@Model.LinearCoefficientA" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LinearCoefficientB">Coefficient B</label>
+                        <input asp-for="LinearCoefficientB" type="number" value="@Model.LinearCoefficientB" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group mt-3" id="nonlinearCoefficients" style="display: none;">
+                    <div class="form-group">
+                        <label asp-for="NonlinearCoefficientA">Coefficient A</label>
+                        <input asp-for="NonlinearCoefficientA" type="number" value="@Model.NonlinearCoefficientA" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NonlinearCoefficientB">Coefficient B</label>
+                        <input asp-for="NonlinearCoefficientB" type="number" value="@Model.NonlinearCoefficientB" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NonlinearCoefficientC">Coefficient C</label>
+                        <input asp-for="NonlinearCoefficientC" type="number" value="@Model.NonlinearCoefficientC" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Position">Letter position</label>
+                        <input asp-for="Position" type="number" value="@Model.Position" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group mt-3" id="password" style="display: none;">
+                    <label asp-for="Password">Password</label>
+                    <input asp-for="Password" type="text" value="@Model.Password" class="form-control">
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Text">Text</label>
+                    <input asp-for="Text" type="text" value="@Model.Text" class="form-control">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Encrypted">Encrypted</label>
+                    <input asp-for="Encrypted" type="text" class="form-control" value="@Model.Encrypted">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Decrypted">Decrypted</label>
+                    <input asp-for="Decrypted" type="text" class="form-control" value="@Model.Decrypted" readonly>
+                </div>
+
+                <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
+                <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
+                <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
+                <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="margin-left: 25px;">
+                <button type="submit" name="action" value="OpenFile"
+                        class="btn btn-outline-dark mt-3 mr-2" style="margin-left: 512px;">
+                    Confirm File
+                </button>
+                <button type="submit" name="action" value="SaveFile"
+                        class="btn btn-outline-success" style="margin-left: 412px; margin-top: -65px;">
+                    Save File
+                </button>
+                <button type="submit" name="action" value="FrequencyTable"
+                        class="btn btn-outline-secondary" style="margin-left: 302px; margin-top: -115px;">
+                    Frequency
+                </button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            @if (Model.BruteForced != null && Model.BruteForced.Any())
+            {
+                <div>
+                    <h2>Brute Forced Results:</h2>
+                    <ul>
+                        @foreach (var result in Model.BruteForced)
+                        {
+                            if (result.Contains("Answer"))
+                            {
+                                <li class="text-danger">@result</li>
+                            }
+                            else
+                            {
+                                <li>@result</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-4 mt-5">
+            @if (Model != null && Model.FrequencyTable.Any())
+            {
+                <div>
+                    <h2>Frequency Table:</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Character</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var kvp in Model.FrequencyTable.OrderByDescending(s => s.Value))
+                            {
+                                <tr>
+                                    <td>@kvp.Key</td>
+                                    <td>@kvp.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

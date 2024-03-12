@@ -10,6 +10,13 @@ namespace Cryptology.BLL
 {
     public class CaesarService
     {
+        private readonly GlobalService _globalService;
+
+        public CaesarService (GlobalService globalService)
+        {
+            _globalService = globalService;
+        }
+
         public async Task<BaseResponse<CaesarViewModel>> Encrypt(CaesarViewModel caesar)
         {
             try
@@ -43,7 +50,7 @@ namespace Cryptology.BLL
 
                 var result = new StringBuilder();
 
-                if (IsEnglish(caesar.Text))
+                if (_globalService.IsEnglish(caesar.Text))
                 {
                     foreach (char c in caesar.Text)
                     {
@@ -66,7 +73,7 @@ namespace Cryptology.BLL
                         }
                     }
                 }
-                else if (IsUkrainian(caesar.Text))
+                else if (_globalService.IsUkrainian(caesar.Text))
                 {
                     foreach (char c in caesar.Text)
                     {
@@ -91,11 +98,11 @@ namespace Cryptology.BLL
                 }
                 else
                 {
-                    return new BaseResponse<CaesarViewModel>
-                    {
-                        Description = "Language does not support",
-                        StatusCode = Domain.Enum.StatusCode.NotFound
-                    };
+                        return new BaseResponse<CaesarViewModel>
+                        {
+                            Description = "Language does not support",
+                            StatusCode = Domain.Enum.StatusCode.NotFound
+                        };
                 }
 
                 caesar.Encrypted = result.ToString();
@@ -150,7 +157,7 @@ namespace Cryptology.BLL
 
                 var result = new StringBuilder();
 
-                if (IsEnglish(caesar.Encrypted))
+                if (_globalService.IsEnglish(caesar.Encrypted))
                 {
                     foreach (char c in caesar.Encrypted)
                     {
@@ -173,7 +180,7 @@ namespace Cryptology.BLL
                         }
                     }
                 }
-                else if (IsUkrainian(caesar.Encrypted))
+                else if (_globalService.IsUkrainian(caesar.Encrypted))
                 {
                     foreach (char c in caesar.Encrypted)
                     {
@@ -246,7 +253,7 @@ namespace Cryptology.BLL
                     };
                 }
 
-                if (IsEnglish(caesar.Encrypted))
+                if (_globalService.IsEnglish(caesar.Encrypted))
                 {
                     for (int step = 1; step <= 26; step++)
                     {
@@ -276,7 +283,7 @@ namespace Cryptology.BLL
                         caesar.BruteForced.Add(result.ToString());
                     }
                 }
-                else if (IsUkrainian(caesar.Encrypted))
+                else if (_globalService.IsUkrainian(caesar.Encrypted))
                 {
                     for (int step = 1; step <= 33; step++)
                     {
@@ -566,14 +573,14 @@ namespace Cryptology.BLL
                     };
                 }
 
-                byte[] imageBytes = await ReadImageBytes(caesar.InputImage);
+                byte[] imageBytes = await _globalService.ReadImageBytes(caesar.InputImage);
                 for (int i = 0; i < imageBytes.Length; i++)
                 {
                     imageBytes[i] = (byte)(imageBytes[i] + caesar.Key);
                 }
 
                 string outputPath = "D:\\МОК\\1\\encrypted.jpg";
-                await SaveImage(imageBytes, outputPath);
+                await _globalService.SaveImage(imageBytes, outputPath);
 
                 return new BaseResponse<CaesarViewModel>()
                 {
@@ -614,7 +621,7 @@ namespace Cryptology.BLL
                     };
                 }
 
-                byte[] encryptedImageBytes = await ReadImageBytes(caesar.EncryptedImage);
+                byte[] encryptedImageBytes = await _globalService.ReadImageBytes(caesar.EncryptedImage);
 
                 for (int i = 0; i < encryptedImageBytes.Length; i++)
                 {
@@ -622,7 +629,7 @@ namespace Cryptology.BLL
                 }
 
                 string outputPath = "D:\\МОК\\1\\decrypted.jpg";
-                await SaveImage(encryptedImageBytes, outputPath);
+                await _globalService.SaveImage(encryptedImageBytes, outputPath);
 
                 return new BaseResponse<CaesarViewModel>()
                 {
@@ -640,32 +647,5 @@ namespace Cryptology.BLL
                 };
             }
         }       
-
-        public bool IsEnglish(string text)
-        {
-            return System.Text.RegularExpressions.Regex.IsMatch(text, @"^[a-zA-Z\s.,-]+$");
-        }
-
-        public bool IsUkrainian(string text)
-        {
-            return System.Text.RegularExpressions.Regex.IsMatch(text, @"^[а-яА-ЯіІїЇєЄґҐ\s.,-]+$");
-        }
-
-        public async Task<byte[]> ReadImageBytes(IFormFile imageFile)
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                await imageFile.CopyToAsync(memoryStream);
-                return memoryStream.ToArray();
-            }
-        }
-
-        public async Task SaveImage(byte[] encryptedImageBytes, string outputPath)
-        {
-            using (FileStream fileStream = new FileStream(outputPath, FileMode.Create))
-            {
-                await fileStream.WriteAsync(encryptedImageBytes, 0, encryptedImageBytes.Length);
-            }
-        }
     }
 }

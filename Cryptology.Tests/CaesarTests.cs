@@ -11,7 +11,8 @@ namespace Cryptology.Tests
     [TestClass]
     public class CaesarTests
     {
-        private CaesarService _caesarService;
+        private GlobalService _globalService;
+        private CaesarService _caesarService;       
         private CaesarViewModel caesar1;
         private CaesarViewModel caesar2;
         private CaesarViewModel caesar3;
@@ -20,7 +21,8 @@ namespace Cryptology.Tests
         [TestInitialize]
         public void Setup()
         {
-            _caesarService = new CaesarService();
+            _globalService = new GlobalService();
+            _caesarService = new CaesarService(_globalService);          
 
             caesar1 = new CaesarViewModel
             {
@@ -51,10 +53,10 @@ namespace Cryptology.Tests
         [TestMethod]
         public void LanguageTest()
         {
-            Assert.IsTrue(_caesarService.IsEnglish(caesar2.Text));
-            Assert.IsFalse(_caesarService.IsEnglish(caesar3.Text));
-            Assert.IsTrue(_caesarService.IsUkrainian(caesar4.Text));
-            Assert.IsFalse(_caesarService.IsUkrainian(caesar1.Text));
+            Assert.IsTrue(_globalService.IsEnglish(caesar2.Text));
+            Assert.IsFalse(_globalService.IsEnglish(caesar3.Text));
+            Assert.IsTrue(_globalService.IsUkrainian(caesar4.Text));
+            Assert.IsFalse(_globalService.IsUkrainian(caesar1.Text));
         }
 
         [TestMethod]
@@ -146,10 +148,10 @@ namespace Cryptology.Tests
             };
 
             IFormFile nullFile = null;
-            var nullCaesarService = new CaesarService();
+            var nullCaesarService = new CaesarService(_globalService);
             BaseResponse<CaesarViewModel> nullResponse = await nullCaesarService.OpenFromFile(nullFile);
 
-            var caesarService = new CaesarService();
+            var caesarService = new CaesarService(_globalService);
             BaseResponse<CaesarViewModel> result = await caesarService.OpenFromFile(file);
 
             Assert.IsNotNull(result.Data);
@@ -192,7 +194,7 @@ namespace Cryptology.Tests
             var ms = new MemoryStream(content);
             IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
 
-            byte[] result = await _caesarService.ReadImageBytes(imageFile);
+            byte[] result = await _globalService.ReadImageBytes(imageFile);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length > 0);
@@ -204,7 +206,7 @@ namespace Cryptology.Tests
             string outputPath = "D:\\ÃŒ \\1\\test-output.jpg";
             byte[] testData = Encoding.UTF8.GetBytes("Test data");
 
-            await _caesarService.SaveImage(testData, outputPath);
+            await _globalService.SaveImage(testData, outputPath);
 
             Assert.IsTrue(File.Exists(outputPath));
             File.Delete(outputPath);
