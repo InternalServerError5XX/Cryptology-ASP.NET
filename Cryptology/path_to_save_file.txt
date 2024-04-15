@@ -1,21 +1,12 @@
 OpenKey - System.Collections.Generic.List`1[System.Int32];
 CloseKey - System.Collections.Generic.List`1[System.Int32];
-Text - Cryptology encryption test
+Text - abbccc
 
 Encrypted - System.Nullable`1[System.Int32][]
-Decrypted - Cryptology encryption test
+Decrypted - abbccc
 
 
 Frequency Table Results:
-c: 2
-r: 2
-y: 3
-p: 2
-t: 4
-o: 3
-l: 1
-g: 1
-e: 2
-n: 2
-i: 1
-s: 1
+a: 1
+b: 2
+c: 3

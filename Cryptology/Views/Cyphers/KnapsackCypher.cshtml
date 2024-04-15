@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h1>Gamma Cypher</h1>
+            <h1>Knapsack Cypher</h1>
             <form asp-controller="Cyphers" asp-action="KnapsackCypher" id="cipherForm" enctype="multipart/form-data">
                 <div class="form-group mt-3">
                     <label asp-for="OpenKey">Open Key</label>
@@ -26,7 +26,7 @@
                     <input asp-for="M" type="text" value="@Model.M" class="form-control">
                 </div>
                 <div class="form-group mt-3">
-                    <label asp-for="T">M</label>
+                    <label asp-for="T">T</label>
                     <input asp-for="T" type="text" value="@Model.T" class="form-control">
                 </div>
                 <div class="form-group mt-3">
