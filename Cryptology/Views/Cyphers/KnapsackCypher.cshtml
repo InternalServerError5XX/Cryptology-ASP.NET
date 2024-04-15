@@ -1,38 +1,51 @@
-@using Cryptology.Domain.Enum;
+﻿@using Cryptology.Domain.Enum;
 @using Cryptology.Domain.EnumHelper;
 @using Cryptology.Domain.ViewModels;
-@model GammaViewModel;
+@model KnapsackViewModel;
 
 @{
-    ViewData["Title"] = "Gamma Cipher";
+    ViewData["Title"] = "Knapsack Cipher";
+    string OpenKeyToString = Model.OpenKey != null ? string.Join(",", Model.OpenKey) : "";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <h1>Gamma Cypher</h1>
-            <form asp-controller="Cyphers" asp-action="GammaCypher" id="cipherForm" enctype="multipart/form-data">
+            <form asp-controller="Cyphers" asp-action="KnapsackCypher" id="cipherForm" enctype="multipart/form-data">
                 <div class="form-group mt-3">
-                    <label asp-for="GammaString">Gamma</label>
-                    <input asp-for="GammaString" type="text" value="@Model.GammaString" class="form-control">
+                    <label asp-for="OpenKey">Open Key</label>
+                    <input asp-for="OpenKey" type="text" class="form-control" value="@OpenKeyToString">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="CloseKey">Close Key</label>
+                    <input asp-for="CloseKey" type="text" value="@string.Join(",", Model.CloseKey)" class="form-control">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="M">M</label>
+                    <input asp-for="M" type="text" value="@Model.M" class="form-control">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="T">M</label>
+                    <input asp-for="T" type="text" value="@Model.T" class="form-control">
                 </div>
                 <div class="form-group mt-3">
                     <label asp-for="Text">Text</label>
                     <input asp-for="Text" type="text" value="@Model.Text" class="form-control">
                 </div>
                 <div class="form-group mt-3">
-                    <label asp-for="EncryptedString">Encrypted</label>
-                    <input asp-for="EncryptedString" type="text" class="form-control" value="@Model.EncryptedString">
+                    <label asp-for="CypherText">Encrypted</label>
+                    <input asp-for="CypherText" type="text" class="form-control" 
+                        value="@((Model.CypherText != null) ? string.Join(",", Model.CypherText) : "")">
                 </div>
                 <div class="form-group mt-3">
-                    <label asp-for="Decrypted">Decrypted</label>
-                    <input asp-for="Decrypted" type="text" class="form-control" value="@Model.Decrypted" readonly>
+                    <label asp-for="DecryptedText">Decrypted</label>
+                    <input asp-for="DecryptedText" type="text" class="form-control" value="@Model.DecryptedText" readonly>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <div>
-                        <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
-                        <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
+                        <button type="submit" name="action" value="Resolve" class="btn btn-primary mt-3 mr-2">Solve</button>
                         <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
                     </div>
                     <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="width:50%">
@@ -41,38 +54,22 @@
                 <div class="mb-5 mt-2 me--1 d-flex justify-content-end">
                     <div>
                         <button type="submit" name="action" value="OpenFile"
-                                class="btn btn-outline-dark mr-2">Confirm File</button>
+                                class="btn btn-outline-dark mr-2">
+                            Confirm File
+                        </button>
                         <button type="submit" name="action" value="SaveFile"
-                                class="btn btn-outline-success mr-2">Save File</button>
+                                class="btn btn-outline-success mr-2">
+                            Save File
+                        </button>
                         <button type="submit" name="action" value="FrequencyTable"
-                                class="btn btn-outline-secondary">Frequency</button>
+                                class="btn btn-outline-secondary">
+                            Frequency
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
 
-        <div class="col-md-6">
-            @if (Model.BruteForced != null && Model.BruteForced.Any())
-            {
-                <div>
-                    <h2>Brute Forced Results:</h2>
-                    <ul>
-                        @foreach (var result in Model.BruteForced)
-                        {
-                            if (result.Contains("Answer"))
-                            {
-                                <li class="text-danger">@result</li>
-                            }
-                            else
-                            {
-                                <li>@result</li>
-                            }
-                        }
-                    </ul>
-                </div>
-            }
-        </div>
-        
         <div class="col-md-4 mt-5">
             @if (Model != null && Model.FrequencyTable.Any())
             {

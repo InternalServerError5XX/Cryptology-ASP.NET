@@ -1,22 +1,21 @@
-Key - lpn0jXJqmWOI6EU6fkVQiQjIu0E=;
-Text - тест шифру гамування
+OpenKey - System.Collections.Generic.List`1[System.Int32];
+CloseKey - System.Collections.Generic.List`1[System.Int32];
+Text - Cryptology encryption test
 
-Encrypted - RxskOKPrSOGoOc3qxpTUWIgZOGFGKiQ9otZI4FhalYqu+IA02Uc=
-Decrypted - тест шифру гамування
+Encrypted - System.Nullable`1[System.Int32][]
+Decrypted - Cryptology encryption test
 
 
 Frequency Table Results:
-т: 2
-е: 1
-с: 1
-ш: 1
-и: 1
-ф: 1
-р: 1
-у: 2
-г: 1
-а: 2
-м: 1
-в: 1
-н: 2
-я: 1
+c: 2
+r: 2
+y: 3
+p: 2
+t: 4
+o: 3
+l: 1
+g: 1
+e: 2
+n: 2
+i: 1
+s: 1
