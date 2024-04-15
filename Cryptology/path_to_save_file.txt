@@ -1,132 +1,22 @@
-Text - Cryptology encryption test
+Key - lpn0jXJqmWOI6EU6fkVQiQjIu0E=;
+Text - тест шифру гамування
 
-Encrypted - Roxeyzkzlx buroxeyvzu ybty
-Decrypted - Cryptology encryption test
+Encrypted - RxskOKPrSOGoOc3qxpTUWIgZOGFGKiQ9otZI4FhalYqu+IA02Uc=
+Decrypted - тест шифру гамування
 
-Brute Force Results:
-Linear: a=1, b=0, 
-Linear: a=1, b=1, 
-Linear: a=1, b=2, 
-Linear: a=1, b=3, 
-Linear: a=1, b=4, 
-Linear: a=1, b=5, 
-Linear: a=1, b=6, 
-Linear: a=1, b=7, 
-Linear: a=1, b=8, 
-Linear: a=1, b=9, 
-Linear: a=1, b=10, 
-Linear: a=1, b=11, 
-Linear: a=1, b=12, 
-Linear: a=1, b=13, 
-Linear: a=1, b=14, 
-Linear: a=1, b=15, 
-Linear: a=1, b=16, 
-Linear: a=1, b=17, 
-Linear: a=1, b=18, 
-Linear: a=1, b=19, 
-Linear: a=1, b=20, 
-Linear: a=1, b=21, 
-Linear: a=1, b=22, 
-Linear: a=1, b=23, 
-Linear: a=1, b=24, 
-Linear: a=1, b=25, 
-Linear: a=2, b=0, 
-Linear: a=2, b=1, 
-Linear: a=2, b=2, 
-Linear: a=2, b=3, 
-Linear: a=2, b=4, 
-Linear: a=2, b=5, 
-Linear: a=2, b=6, 
-Linear: a=2, b=7, 
-Linear: a=2, b=8, 
-Linear: a=2, b=9, 
-Linear: a=2, b=10, 
-Linear: a=2, b=11, 
-Linear: a=2, b=12, 
-Linear: a=2, b=13, 
-Linear: a=2, b=14, 
-Linear: a=2, b=15, 
-Linear: a=2, b=16, 
-Linear: a=2, b=17, 
-Linear: a=2, b=18, 
-Linear: a=2, b=19, 
-Linear: a=2, b=20, 
-Linear: a=2, b=21, 
-Linear: a=2, b=22, 
-Linear: a=2, b=23, 
-Linear: a=2, b=24, 
-Linear: a=2, b=25, 
-Linear: a=3, b=0, 
-Linear: a=3, b=1, 
-Linear: a=3, b=2, 
-Linear: a=3, b=3, 
-Linear: a=3, b=4, 
-Linear: a=3, b=5, 
-Linear: a=3, b=6, 
-Linear: a=3, b=7, 
-Linear: a=3, b=8, 
-Linear: a=3, b=9, 
-Linear: a=3, b=10, 
-Linear: a=3, b=11, 
-Linear: a=3, b=12, 
-Linear: a=3, b=13, 
-Linear: a=3, b=14, 
-Linear: a=3, b=15, 
-Linear: a=3, b=16, 
-Linear: a=3, b=17, 
-Linear: a=3, b=18, 
-Linear: a=3, b=19, 
-Linear: a=3, b=20, 
-Linear: a=3, b=21, 
-Linear: a=3, b=22, 
-Linear: a=3, b=23, 
-Linear: a=3, b=24, 
-Linear: a=3, b=25, 
-Linear: a=4, b=0, 
-Linear: a=4, b=1, 
-Linear: a=4, b=2, 
-Linear: a=4, b=3, 
-Linear: a=4, b=4, 
-Linear: a=4, b=5, 
-Linear: a=4, b=6, 
-Linear: a=4, b=7, 
-Linear: a=4, b=8, 
-Linear: a=4, b=9, 
-Linear: a=4, b=10, 
-Linear: a=4, b=11, 
-Linear: a=4, b=12, 
-Linear: a=4, b=13, 
-Linear: a=4, b=14, 
-Linear: a=4, b=15, 
-Linear: a=4, b=16, 
-Linear: a=4, b=17, 
-Linear: a=4, b=18, 
-Linear: a=4, b=19, 
-Linear: a=4, b=20, 
-Linear: a=4, b=21, 
-Linear: a=4, b=22, 
-Linear: a=4, b=23, 
-Linear: a=4, b=24, 
-Linear: a=4, b=25, 
-Linear: a=5, b=0, 
-Linear: a=5, b=1, 
-Linear: a=5, b=2, 
-Linear: a=5, b=3, 
-Linear: a=5, b=4, 
-Linear: a=5, b=5, 
-Linear: a=5, b=6, 
-Linear: a=5, b=7, Answer - Cryptology encryption test
 
 Frequency Table Results:
-c: 2
-r: 2
-y: 3
-p: 2
-t: 4
-o: 3
-l: 1
-g: 1
-e: 2
-n: 2
-i: 1
-s: 1
+т: 2
+е: 1
+с: 1
+ш: 1
+и: 1
+ф: 1
+р: 1
+у: 2
+г: 1
+а: 2
+м: 1
+в: 1
+н: 2
+я: 1

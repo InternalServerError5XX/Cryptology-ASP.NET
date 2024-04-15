@@ -1,29 +1,28 @@
-﻿@using Cryptology.Domain.Enum;
+@using Cryptology.Domain.Enum;
+@using Cryptology.Domain.EnumHelper;
 @using Cryptology.Domain.ViewModels;
-@model CaesarViewModel;
+@model GammaViewModel;
 
 @{
-    ViewData["Title"] = "Caesar Cypher";
+    ViewData["Title"] = "Gamma Cipher";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h1>Caesar Cypher</h1>
-
-            <form asp-controller="Cyphers" asp-action="CaesarCypher" enctype="multipart/form-data">
+            <h1>Gamma Cipher</h1>
+            <form asp-controller="Cyphers" asp-action="GammaCypher" id="cipherForm" enctype="multipart/form-data">
                 <div class="form-group mt-3">
-                    <label asp-for="Key">Key</label>
-                    <input asp-for="Key" type="number" class="form-control" value="@Model.Key" required>
+                    <label asp-for="GammaString">Gamma</label>
+                    <input asp-for="GammaString" type="text" value="@Model.GammaString" class="form-control">
                 </div>
-
                 <div class="form-group mt-3">
                     <label asp-for="Text">Text</label>
-                    <input asp-for="Text" type="text" class="form-control" value="@Model.Text">
+                    <input asp-for="Text" type="text" value="@Model.Text" class="form-control">
                 </div>
                 <div class="form-group mt-3">
-                    <label asp-for="Encrypted">Encrypted</label>
-                    <input asp-for="Encrypted" type="text" class="form-control" value="@Model.Encrypted">
+                    <label asp-for="EncryptedString">Encrypted</label>
+                    <input asp-for="EncryptedString" type="text" class="form-control" value="@Model.EncryptedString">
                 </div>
                 <div class="form-group mt-3">
                     <label asp-for="Decrypted">Decrypted</label>
@@ -38,7 +37,7 @@
                     </div>
                     <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="width:50%">
                 </div>
-                
+
                 <div class="mb-5 mt-2 me--1 d-flex justify-content-end">
                     <div>
                         <button type="submit" name="action" value="OpenFile"
@@ -47,23 +46,8 @@
                                 class="btn btn-outline-success mr-2">Save File</button>
                         <button type="submit" name="action" value="FrequencyTable"
                                 class="btn btn-outline-secondary">Frequency</button>
-                    </div>                
-                </div>
-
-                <div style="margin-top: -25px; display: flex; align-items: center; justify-content: space-between;">
-                    <div style="display: flex; flex-direction: column;">
-                        <label>Original Image</label>
-                        <input asp-for="InputImage" type="file" class="btn btn-outline-primary" style="width: 275px;">
-                        <button type="submit" name="action" value="EncryptImage" class="btn btn-outline-primary" style="margin-top: 10px;">Encrypt</button>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column;">
-                        <label>Encrypted Image</label>
-                        <input asp-for="EncryptedImage" type="file" class="btn btn-primary" style="width: 320px;">
-                        <button type="submit" name="action" value="DecryptImage" class="btn btn-primary" style="margin-top: 10px;">Decrypt</button>
                     </div>
                 </div>
-
             </form>
         </div>
 
@@ -75,9 +59,9 @@
                     <ul>
                         @foreach (var result in Model.BruteForced)
                         {
-                            if (result == Model.Text)
+                            if (result.Contains("Answer"))
                             {
-                                <li class="text-danger">@result - Answer</li>
+                                <li class="text-danger">@result</li>
                             }
                             else
                             {
@@ -88,7 +72,7 @@
                 </div>
             }
         </div>
-
+        
         <div class="col-md-4 mt-5">
             @if (Model != null && Model.FrequencyTable.Any())
             {
@@ -102,11 +86,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var symbol in Model.FrequencyTable.OrderByDescending(s => s.Value))
+                            @foreach (var kvp in Model.FrequencyTable.OrderByDescending(s => s.Value))
                             {
                                 <tr>
-                                    <td>@symbol.Key</td>
-                                    <td>@symbol.Value</td>
+                                    <td>@kvp.Key</td>
+                                    <td>@kvp.Value</td>
                                 </tr>
                             }
                         </tbody>
