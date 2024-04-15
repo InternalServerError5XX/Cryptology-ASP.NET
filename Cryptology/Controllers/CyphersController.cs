@@ -9,11 +9,17 @@ namespace Cryptology.Controllers
     {
         private readonly CaesarService _caesarService;
         private readonly TrithemiusService _trithemiusService;
+        private readonly GammaService _gammaService;
+        private readonly KnapsackService _knapsackService;
 
-        public CyphersController(CaesarService caesarService, TrithemiusService trithemiusService)
+        public CyphersController(CaesarService caesarService, TrithemiusService trithemiusService,
+            GammaService gammaService, KnapsackService knapsackService)
         {
             _caesarService = caesarService;
             _trithemiusService = trithemiusService;
+            _gammaService = gammaService;
+            _knapsackService = knapsackService;
+
         }
 
         public async Task<IActionResult> CaesarCypher()
@@ -259,6 +265,175 @@ namespace Cryptology.Controllers
                 }
             }
             return View(trithemius);
+        }
+
+        public async Task<IActionResult> GammaCypher()
+        {
+            return View(new GammaViewModel());
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> GammaCypher(GammaViewModel gammaViewModel, string action)
+        {
+            if (action == "Encrypt")
+            {
+                var encryptResponse = await _gammaService.Encrypt(gammaViewModel);
+
+                if (encryptResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return View("GammaCypher", gammaViewModel);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = encryptResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "Decrypt")
+            {
+                var decryptResponse = await _gammaService.Decrypt(gammaViewModel);
+
+                if (decryptResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return View("GammaCypher", gammaViewModel);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = decryptResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "OpenFile")
+            {
+                var openfileResponse = await _gammaService.OpenFromFile(gammaViewModel.OpenFile);
+            
+                if (openfileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = openfileResponse.StatusCode.ToString();
+                    return View("GammaCypher", openfileResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "SaveFile")
+            {
+                var saveFileResponse = await _gammaService.SaveToFile(gammaViewModel);
+            
+                if (saveFileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = saveFileResponse.StatusCode.ToString();
+                    string filePath = "path_to_save_file.txt";
+                    byte[] fileContents = await System.IO.File.ReadAllBytesAsync(filePath);
+                    return File(fileContents, "text/plain", $"{DateTime.UtcNow} - result.txt");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "FrequencyTable")
+            {
+                var frequencyTableResponse = await _gammaService.FrequencyTable(gammaViewModel);
+            
+                if (frequencyTableResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = frequencyTableResponse.StatusCode.ToString();
+                    return View("GammaCypher", frequencyTableResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            
+            return View(gammaViewModel);
+        }
+
+        public async Task<IActionResult> KnapsackCypher()
+        {
+            return View(new KnapsackViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> KnapsackCypher(KnapsackViewModel knapsackViewModel, string action)
+        {
+            if (action == "Resolve")
+            {
+                var encryptResponse = await _knapsackService.Encrypt(knapsackViewModel);
+                var decryptResponse = await _knapsackService.Decrypt(encryptResponse.Data);
+
+                if (encryptResponse.StatusCode == Domain.Enum.StatusCode.OK &&
+                    decryptResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return View("KnapsackCypher", knapsackViewModel);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = encryptResponse.Description;
+                    TempData["AlertMessage"] = decryptResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "OpenFile")
+            {
+                var openfileResponse = await _knapsackService.OpenFromFile(knapsackViewModel.OpenFile);
+
+                if (openfileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = openfileResponse.StatusCode.ToString();
+                    return View("KnapsackCypher", openfileResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "SaveFile")
+            {
+                var saveFileResponse = await _knapsackService.SaveToFile(knapsackViewModel);
+
+                if (saveFileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = saveFileResponse.StatusCode.ToString();
+                    string filePath = "path_to_save_file.txt";
+                    byte[] fileContents = await System.IO.File.ReadAllBytesAsync(filePath);
+                    return File(fileContents, "text/plain", $"{DateTime.UtcNow} - result.txt");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "FrequencyTable")
+            {
+                var frequencyTableResponse = await _knapsackService.FrequencyTable(knapsackViewModel);
+
+                if (frequencyTableResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = frequencyTableResponse.StatusCode.ToString();
+                    return View("KnapsackCypher", frequencyTableResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+
+            return View(knapsackViewModel);
         }
     }
 }

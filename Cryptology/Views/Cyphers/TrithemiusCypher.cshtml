@@ -73,22 +73,25 @@
                     <input asp-for="Decrypted" type="text" class="form-control" value="@Model.Decrypted" readonly>
                 </div>
 
-                <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
-                <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
-                <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
-                <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="margin-left: 25px;">
-                <button type="submit" name="action" value="OpenFile"
-                        class="btn btn-outline-dark mt-3 mr-2" style="margin-left: 512px;">
-                    Confirm File
-                </button>
-                <button type="submit" name="action" value="SaveFile"
-                        class="btn btn-outline-success" style="margin-left: 412px; margin-top: -65px;">
-                    Save File
-                </button>
-                <button type="submit" name="action" value="FrequencyTable"
-                        class="btn btn-outline-secondary" style="margin-left: 302px; margin-top: -115px;">
-                    Frequency
-                </button>
+                 <div class="d-flex justify-content-between">
+                                    <div>
+                                        <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
+                                        <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
+                                        <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
+                                    </div>
+                                    <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="width:50%">
+                                </div>
+                                
+                                <div class="mb-5 mt-2 me--1 d-flex justify-content-end">
+                                    <div>
+                                        <button type="submit" name="action" value="OpenFile"
+                                                class="btn btn-outline-dark mr-2">Confirm File</button>
+                                        <button type="submit" name="action" value="SaveFile"
+                                                class="btn btn-outline-success mr-2">Save File</button>
+                                        <button type="submit" name="action" value="FrequencyTable"
+                                                class="btn btn-outline-secondary">Frequency</button>
+                                    </div>                
+                                </div>
             </form>
         </div>
 

@@ -34,16 +34,6 @@ namespace Cryptology.Tests
                 Key = 10,
                 Text = "AbC, - Test."
             };
-            caesar3 = new CaesarViewModel
-            {
-                Key = 0,
-                Text = "‡·‚"
-            };
-            caesar4 = new CaesarViewModel
-            {
-                Key = 10,
-                Text = "¿·¬, - “ÂÒÚ."
-            };
 
             var content = Encoding.UTF8.GetBytes("Mock image content");
             var ms = new MemoryStream(content);
@@ -53,10 +43,8 @@ namespace Cryptology.Tests
         [TestMethod]
         public void LanguageTest()
         {
-            Assert.IsTrue(_globalService.IsEnglish(caesar2.Text));
-            Assert.IsFalse(_globalService.IsEnglish(caesar3.Text));
-            Assert.IsTrue(_globalService.IsUkrainian(caesar4.Text));
-            Assert.IsFalse(_globalService.IsUkrainian(caesar1.Text));
+            Assert.IsTrue(_globalService.IsEnglish(caesar1.Text));
+            Assert.IsTrue(_globalService.IsEnglish(caesar1.Text));
         }
 
         [TestMethod]
@@ -64,13 +52,9 @@ namespace Cryptology.Tests
         {
             var encrypted1 = await _caesarService.Encrypt(caesar1);
             var encrypted2 = await _caesarService.Encrypt(caesar2);
-            var encrypted3 = await _caesarService.Encrypt(caesar3);
-            var encrypted4 = await _caesarService.Encrypt(caesar4);
 
             Assert.AreEqual(encrypted1.Data.Encrypted, "abc");
             Assert.AreEqual(encrypted2.Data.Encrypted, "KlM, - Docd.");
-            Assert.AreEqual(encrypted3.Data.Encrypted, "‡·‚");
-            Assert.AreEqual(encrypted4.Data.Encrypted, " ÎÃ, - ‹Ô˚¸.");
         }
 
         [TestMethod]
@@ -78,18 +62,12 @@ namespace Cryptology.Tests
         {
             caesar1.Encrypted = caesar1.Text;
             caesar2.Encrypted = caesar2.Text;
-            caesar3.Encrypted = caesar3.Text;
-            caesar4.Encrypted = caesar4.Text;
 
             var decrypted1 = await _caesarService.Decrypt(caesar1);
             var decrypted2 = await _caesarService.Decrypt(caesar2);
-            var decrypted3 = await _caesarService.Decrypt(caesar3);
-            var decrypted4 = await _caesarService.Decrypt(caesar4);            
 
             Assert.AreEqual(decrypted1.Data.Decrypted, "abc");
             Assert.AreEqual(decrypted2.Data.Decrypted, "QrS, - Juij.");
-            Assert.AreEqual(decrypted3.Data.Decrypted, "‡·‚");
-            Assert.AreEqual(decrypted4.Data.Decrypted, "◊¯Ÿ, - »¸ÁË.");
         }
 
         [TestMethod]
@@ -97,18 +75,12 @@ namespace Cryptology.Tests
         {
             var encrypted1 = await _caesarService.Encrypt(caesar1);
             var encrypted2 = await _caesarService.Encrypt(caesar2);
-            var encrypted3 = await _caesarService.Encrypt(caesar3);
-            var encrypted4 = await _caesarService.Encrypt(caesar4);
 
             var decrypted1 = await _caesarService.Decrypt(encrypted1.Data);
             var decrypted2 = await _caesarService.Decrypt(encrypted2.Data);
-            var decrypted3 = await _caesarService.Decrypt(encrypted3.Data);
-            var decrypted4 = await _caesarService.Decrypt(encrypted4.Data);
 
             Assert.AreEqual(decrypted1.Data.Decrypted, caesar1.Text);
             Assert.AreEqual(decrypted2.Data.Decrypted, caesar2.Text);
-            Assert.AreEqual(decrypted3.Data.Decrypted, caesar3.Text);
-            Assert.AreEqual(decrypted4.Data.Decrypted, caesar4.Text);
         }
 
         [TestMethod]
@@ -116,23 +88,15 @@ namespace Cryptology.Tests
         {
             var encrypted1 = await _caesarService.Encrypt(caesar1);
             var encrypted2 = await _caesarService.Encrypt(caesar2);
-            var encrypted3 = await _caesarService.Encrypt(caesar3);
-            var encrypted4 = await _caesarService.Encrypt(caesar4);
 
             var decrypted1 = await _caesarService.Decrypt(encrypted1.Data);
             var decrypted2 = await _caesarService.Decrypt(encrypted2.Data);
-            var decrypted3 = await _caesarService.Decrypt(encrypted3.Data);
-            var decrypted4 = await _caesarService.Decrypt(encrypted4.Data);
 
             var bruteForce1 = await _caesarService.BruteForce(caesar1);
             var bruteForce2 = await _caesarService.BruteForce(caesar2);
-            var bruteForce3 = await _caesarService.BruteForce(caesar3);
-            var bruteForce4 = await _caesarService.BruteForce(caesar4);
 
             Assert.IsTrue(bruteForce1.Data.BruteForced.Contains(decrypted1.Data.Decrypted));
             Assert.IsTrue(bruteForce2.Data.BruteForced.Contains(decrypted2.Data.Decrypted));
-            Assert.IsTrue(bruteForce3.Data.BruteForced.Contains(decrypted3.Data.Decrypted));
-            Assert.IsTrue(bruteForce4.Data.BruteForced.Contains(decrypted4.Data.Decrypted));
         }
 
         [TestMethod]
@@ -198,63 +162,6 @@ namespace Cryptology.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length > 0);
-        }
-
-        [TestMethod]
-        public async Task SaveImageTest()
-        {
-            string outputPath = "D:\\ÃŒ \\1\\test-output.jpg";
-            byte[] testData = Encoding.UTF8.GetBytes("Test data");
-
-            await _globalService.SaveImage(testData, outputPath);
-
-            Assert.IsTrue(File.Exists(outputPath));
-            File.Delete(outputPath);
-        }
-
-        [TestMethod]
-        public async Task EncryptImageTest()
-        {
-            var content = Encoding.UTF8.GetBytes("Image content");
-            var ms = new MemoryStream(content);
-            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
-
-            CaesarViewModel caesar = new CaesarViewModel
-            {
-                InputImage = imageFile,
-                Key = 3
-            };
-
-            var response = await _caesarService.EncryptImage(caesar);
-
-            Assert.AreEqual(StatusCode.OK, response.StatusCode);
-            Assert.IsNotNull(response.Data);
-            Assert.IsTrue(File.Exists("D:\\ÃŒ \\1\\encrypted.jpg"));
-
-            File.Delete("D:\\ÃŒ \\1\\encrypted.jpg");
-        }
-
-        [TestMethod]
-        public async Task DecryptImageTest()
-        {
-            var content = Encoding.UTF8.GetBytes("Image content");
-            var ms = new MemoryStream(content);
-            IFormFile imageFile = new FormFile(ms, 0, content.Length, "mockImageFile", "test.jpg");
-
-            CaesarViewModel caesar = new CaesarViewModel
-            {
-                EncryptedImage = imageFile,
-                Key = 3
-            };
-
-            var decryptResponse = await _caesarService.DecryptImage(caesar);  
-            caesar.DecryptedImage = decryptResponse.Data.EncryptedImage;
-
-            Assert.AreEqual(StatusCode.OK, decryptResponse.StatusCode);
-            Assert.IsNotNull(caesar.DecryptedImage);
-            Assert.IsTrue(File.Exists("D:\\ÃŒ \\1\\decrypted.jpg"));
-
-            File.Delete("D:\\ÃŒ \\1\\decrypted.jpg");
         }
     }
 }

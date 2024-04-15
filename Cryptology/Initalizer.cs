@@ -1,4 +1,5 @@
 ﻿using Cryptology.BLL;
+using Cryptology.Domain.Entity;
 
 namespace Cryptology
 {
@@ -9,6 +10,8 @@ namespace Cryptology
             services.AddScoped<GlobalService>();
             services.AddScoped<CaesarService>();
             services.AddScoped<TrithemiusService>();
+            services.AddScoped<GammaService>();
+            services.AddScoped<KnapsackService>();
         }
     }
 }
