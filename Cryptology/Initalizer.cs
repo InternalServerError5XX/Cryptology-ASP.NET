@@ -12,6 +12,7 @@ namespace Cryptology
             services.AddScoped<TrithemiusService>();
             services.AddScoped<GammaService>();
             services.AddScoped<KnapsackService>();
+            services.AddScoped<RsaService>();
         }
     }
 }
