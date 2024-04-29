@@ -1,9 +1,9 @@
-OpenKey - <RSAKeyValue><Modulus>ydPxw6s/uSm2wglgWGLPvCEQ81BLDDRSzteM/6kUfbrptQz+dBtnuS3mffBLJTWV1f8M/yIq6kPcnFxniRs2vrvlhVZ5VqwPn3TGkZxwMe7YUiG+WoAjPRtm8cVxaYB7p7J8Css02nXbr0ZZQltbwhFqdKLVJ45+uZvjqzxx1sk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>;
-CloseKey - <RSAKeyValue><Modulus>ydPxw6s/uSm2wglgWGLPvCEQ81BLDDRSzteM/6kUfbrptQz+dBtnuS3mffBLJTWV1f8M/yIq6kPcnFxniRs2vrvlhVZ5VqwPn3TGkZxwMe7YUiG+WoAjPRtm8cVxaYB7p7J8Css02nXbr0ZZQltbwhFqdKLVJ45+uZvjqzxx1sk=</Modulus><Exponent>AQAB</Exponent><P>4W0LyuiSUiVbE6bFqjFRiLu4pz2qg/NkJeVhru40VG2ULI5kHxfw/v4jyYKneXOtI4zsr+DULAMryPQuqQAjKw==</P><Q>5TOOgvdqdzEyNNYd9k+mYjWUCXgu372E5XNUxHqw9WibtBZ3BXFiQFLo1fd/ThPtW5WUFyTSlNI8DDtKjp7D2w==</Q><DP>ALLAxZkg0uZQuOfcVuGeOgky0jnLrGr1lXR3b/5G5TgNrHGod7wwP+nznG0uLZ8hGyoVlZnhrl04JoAzIMziTw==</DP><DQ>3S26icHOmMT9ySUS9t14F2/SsqyqtzjBJVb9ZzlqyPewwcGoC7WV9bLMg6Z50FPEisu2g/sBx6F1Vuxkj2rAXw==</DQ><InverseQ>DeKppSYWHeqol6XPs5ekZCbhUoD7oI1KO189dEEoRK76iGPXrjD595J/6+267HR/SW0kCTmHeeUpRu3aKTgxFg==</InverseQ><D>FVHxSRUu/xVb+/VXmx6dCSeJDdregqSIVtdISr2Gr51uELUVsBgxBcvGfGlE1uJpOJjfu5fVZrfSdyX/vekFCEL0i8t1v5wGptfM1Lc3Vy6QWe/N0S27Ggw0JKoOwkCvjA+7pon5tqfZT0NHcDdWgvOd7DG9IsMW7s+Ju3rs+W0=</D></RSAKeyValue>;
-Text - Cryptology encryption test
+OpenKey - <RSAKeyValue><Modulus>1sb17faQIP4RfZe1WNAXvfmvf9W4hBEEIk4zuZRi0voLnjt6EPL59sBj35Io+xI/CzM3mBWnAoE7E95WHrhMiusxGLJmfbB103HorYMzwh9AVWxG+HZHBLeNjJqU81vrqcJW6R9O53U6CWZkPq/mTGnMlYDZbM5cisOu1U3Cut0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>;
+CloseKey - <RSAKeyValue><Modulus>1sb17faQIP4RfZe1WNAXvfmvf9W4hBEEIk4zuZRi0voLnjt6EPL59sBj35Io+xI/CzM3mBWnAoE7E95WHrhMiusxGLJmfbB103HorYMzwh9AVWxG+HZHBLeNjJqU81vrqcJW6R9O53U6CWZkPq/mTGnMlYDZbM5cisOu1U3Cut0=</Modulus><Exponent>AQAB</Exponent><P>6Nu8lJZsMCpLfomw2kHIjfJ1L3kDRggBZJdpxGYmYjnEj7WpIcfyxg3bunOl7jbPT7gX0rE5Xhk57NYPy4M8Lw==</P><Q>7B82Y9Ij5mMfgriFePN3y+qwltuSAbn++jy2XQ0kNSUAhdQePg2TZsy4SbsEVEmLhbYkPWAXhyMT2uXRODM6sw==</Q><DP>q9+M6QvCXSbKxGJzRBXsJ0G/10N19BnylUHhUpKnYDcNa5mFdia0fhU6ivvTjOmtyUSzaNNg6aCrDbHOxMNgBw==</DP><DQ>Z9w21WOKjP1Oz/YQJ6qYKCb8M+8y4vWINVPdN0LfiUzUVQl/n/Xiv1YPPcc4WUbcSx1aBXEuCDAivKdYButpxw==</DQ><InverseQ>0UjE4YIingeqTLW1jin+l7J1EiGMk2Q/+PoxizZLH728jup3QZmGyadKSAcB88iE6ycUA033g4Zmi3oawADbkw==</InverseQ><D>nLLmpSp6N4gGrNIt3lFcsR9leugsSja8BGd395MakwEZzuVoBsuvsebmNyzFN4E1e+9vRUeu5PXya2mQ/bLLLE2HTfkoGd1roh9mZJkgn/+qgQ4bDV/YbrZo+opaE27ruL+WnmO7pE2QT+1KWDOE6D+uoqTVav+opLXRqYgI8OU=</D></RSAKeyValue>;
+Text - Cryptology encryption test тест укр мови
 
-Encrypted - 25-14-FC-BF-89-2F-02-C8-3B-05-D1-C9-EE-B8-79-08-B7-60-C8-07-53-01-ED-B0-26-A4-27-8E-B1-6A-7B-8D-64-A8-75-DD-AF-53-E6-79-12-E9-F7-AA-E7-EF-7F-6B-2E-36-C5-A8-D8-46-D9-CC-3A-31-58-B5-0A-A9-02-1D-C5-C1-74-1A-97-90-10-B6-CD-5F-AD-01-28-A4-59-2F-0B-09-BE-0A-E6-07-39-DA-02-AB-EC-C2-7A-E4-BD-40-B4-18-D1-A4-DC-A8-B9-CC-0D-D7-08-3B-17-14-04-3D-87-31-FA-8C-C4-5B-98-C9-A3-93-E5-58-C8-41-DC-F6
-Decrypted - Cryptology encryption test
+Encrypted - B8-C6-7A-8F-5E-91-32-9F-5D-25-11-91-89-EF-F3-30-85-8D-9A-CE-59-F2-6F-62-9D-D2-8D-EF-76-B5-2F-07-B8-C1-7D-56-FC-F0-C4-79-68-C3-D8-A6-22-82-06-74-68-BF-05-76-2A-63-0F-62-12-EC-B8-EF-95-51-CA-D2-D6-29-04-86-42-A0-F8-D0-95-5B-35-D9-7E-6A-C8-22-5C-A3-E7-4D-4A-49-5B-14-4E-6E-7F-FD-25-6B-D0-99-D9-E7-F1-2B-B4-F5-07-7B-CB-CC-1F-4A-80-D9-CC-62-95-52-9A-90-F3-24-DF-D2-C1-E0-1A-D9-DD-33-D3-B0
+Decrypted - Cryptology encryption test тест укр мови
 
 Frequency Table Results:
 t: 4
@@ -14,7 +14,17 @@ r: 2
 p: 2
 e: 2
 n: 2
+т: 2
 l: 1
 g: 1
 i: 1
 s: 1
+е: 1
+с: 1
+у: 1
+к: 1
+р: 1
+м: 1
+о: 1
+в: 1
+и: 1
