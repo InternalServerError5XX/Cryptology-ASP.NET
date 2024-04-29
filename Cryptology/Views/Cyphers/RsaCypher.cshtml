@@ -1,0 +1,105 @@
+﻿@using Cryptology.Domain.Enum;
+@using Cryptology.Domain.ViewModels;
+@model RsaViewModel;
+
+@{
+    ViewData["Title"] = "RSA Cypher";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>RSA Cypher</h1>
+
+            <form asp-controller="Cyphers" asp-action="RsaCypher" enctype="multipart/form-data">
+                <div class="form-group mt-3">
+                    <label asp-for="PublicKey">Public Key</label>
+                    <textarea for="PublicKey" class="form-control" style="width:1200px" 
+                        rows="1">@Model.PublicKey</textarea>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="PrivateKey">Private Key</label>
+                    <textarea for="PrivateKey" class="form-control" style="width:1200px" 
+                        rows="1">@Model.PrivateKey</textarea>
+                </div>
+
+                <input asp-for="PublicKey" type="text" value="@Model.PublicKey" hidden>
+                <input asp-for="PrivateKey" type="text" value="@Model.PrivateKey" hidden>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Text">Text</label>
+                    <input asp-for="Text" type="text" value="@Model.Text" class="form-control">
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="EncryptedString">Encrypted</label>
+                    <input asp-for="EncryptedString" type="text" value="@Model.EncryptedString" hidden>
+                    @if (@Model.Encrypted == null)
+                    {
+                        <input class="form-control">
+                    }
+                    else
+                    {
+                        <textarea for="Encrypted" class="form-control" style="width:1200px" 
+                            rows="3">@BitConverter.ToString(@Model.Encrypted)</textarea>
+                    }
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Decrypted">Decrypted</label>
+                    <input asp-for="Decrypted" type="text" class="form-control" value="@Model.Decrypted" readonly>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <button type="submit" name="action" value="Encrypt" class="btn btn-outline-primary mt-3 mr-2">Encrypt</button>
+                        <button type="submit" name="action" value="Decrypt" class="btn btn-primary mt-3 mr-2">Decrypt</button>
+                        <button type="submit" name="action" value="BruteForce" class="btn btn-danger mt-3 mr-2">Brute Force</button>
+                    </div>
+                    <input asp-for="OpenFile" type="file" class="btn btn-outline-primary mt-3" style="width:50%">
+                </div>
+
+                <div class="mb-5 mt-2 me--1 d-flex justify-content-end">
+                    <div>
+                        <button type="submit" name="action" value="OpenFile"
+                                class="btn btn-outline-dark mr-2" style="margin-right:4px">
+                            Confirm File
+                        </button>
+                        <button type="submit" name="action" value="SaveFile"
+                                class="btn btn-outline-success mr-2" style="margin-right:4px">
+                            Save File
+                        </button>
+                        <button type="submit" name="action" value="FrequencyTable"
+                                class="btn btn-outline-secondary">
+                            Frequency
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-md-4 mt-5">
+            @if (Model != null && Model.FrequencyTable.Any())
+            {
+                <div>
+                    <h2>Frequency Table:</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Character</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var symbol in Model.FrequencyTable.OrderByDescending(s => s.Value))
+                            {
+                                <tr>
+                                    <td>@symbol.Key</td>
+                                    <td>@symbol.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        </div>      
+    </div>
+</div>

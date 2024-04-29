@@ -1,12 +1,20 @@
-OpenKey - System.Collections.Generic.List`1[System.Int32];
-CloseKey - System.Collections.Generic.List`1[System.Int32];
-Text - abbccc
+OpenKey - <RSAKeyValue><Modulus>ydPxw6s/uSm2wglgWGLPvCEQ81BLDDRSzteM/6kUfbrptQz+dBtnuS3mffBLJTWV1f8M/yIq6kPcnFxniRs2vrvlhVZ5VqwPn3TGkZxwMe7YUiG+WoAjPRtm8cVxaYB7p7J8Css02nXbr0ZZQltbwhFqdKLVJ45+uZvjqzxx1sk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>;
+CloseKey - <RSAKeyValue><Modulus>ydPxw6s/uSm2wglgWGLPvCEQ81BLDDRSzteM/6kUfbrptQz+dBtnuS3mffBLJTWV1f8M/yIq6kPcnFxniRs2vrvlhVZ5VqwPn3TGkZxwMe7YUiG+WoAjPRtm8cVxaYB7p7J8Css02nXbr0ZZQltbwhFqdKLVJ45+uZvjqzxx1sk=</Modulus><Exponent>AQAB</Exponent><P>4W0LyuiSUiVbE6bFqjFRiLu4pz2qg/NkJeVhru40VG2ULI5kHxfw/v4jyYKneXOtI4zsr+DULAMryPQuqQAjKw==</P><Q>5TOOgvdqdzEyNNYd9k+mYjWUCXgu372E5XNUxHqw9WibtBZ3BXFiQFLo1fd/ThPtW5WUFyTSlNI8DDtKjp7D2w==</Q><DP>ALLAxZkg0uZQuOfcVuGeOgky0jnLrGr1lXR3b/5G5TgNrHGod7wwP+nznG0uLZ8hGyoVlZnhrl04JoAzIMziTw==</DP><DQ>3S26icHOmMT9ySUS9t14F2/SsqyqtzjBJVb9ZzlqyPewwcGoC7WV9bLMg6Z50FPEisu2g/sBx6F1Vuxkj2rAXw==</DQ><InverseQ>DeKppSYWHeqol6XPs5ekZCbhUoD7oI1KO189dEEoRK76iGPXrjD595J/6+267HR/SW0kCTmHeeUpRu3aKTgxFg==</InverseQ><D>FVHxSRUu/xVb+/VXmx6dCSeJDdregqSIVtdISr2Gr51uELUVsBgxBcvGfGlE1uJpOJjfu5fVZrfSdyX/vekFCEL0i8t1v5wGptfM1Lc3Vy6QWe/N0S27Ggw0JKoOwkCvjA+7pon5tqfZT0NHcDdWgvOd7DG9IsMW7s+Ju3rs+W0=</D></RSAKeyValue>;
+Text - Cryptology encryption test
 
-Encrypted - System.Nullable`1[System.Int32][]
-Decrypted - abbccc
-
+Encrypted - 25-14-FC-BF-89-2F-02-C8-3B-05-D1-C9-EE-B8-79-08-B7-60-C8-07-53-01-ED-B0-26-A4-27-8E-B1-6A-7B-8D-64-A8-75-DD-AF-53-E6-79-12-E9-F7-AA-E7-EF-7F-6B-2E-36-C5-A8-D8-46-D9-CC-3A-31-58-B5-0A-A9-02-1D-C5-C1-74-1A-97-90-10-B6-CD-5F-AD-01-28-A4-59-2F-0B-09-BE-0A-E6-07-39-DA-02-AB-EC-C2-7A-E4-BD-40-B4-18-D1-A4-DC-A8-B9-CC-0D-D7-08-3B-17-14-04-3D-87-31-FA-8C-C4-5B-98-C9-A3-93-E5-58-C8-41-DC-F6
+Decrypted - Cryptology encryption test
 
 Frequency Table Results:
-a: 1
-b: 2
-c: 3
+t: 4
+y: 3
+o: 3
+c: 2
+r: 2
+p: 2
+e: 2
+n: 2
+l: 1
+g: 1
+i: 1
+s: 1

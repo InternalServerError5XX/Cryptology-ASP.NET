@@ -11,15 +11,16 @@ namespace Cryptology.Controllers
         private readonly TrithemiusService _trithemiusService;
         private readonly GammaService _gammaService;
         private readonly KnapsackService _knapsackService;
+        private readonly RsaService _rsaService;
 
         public CyphersController(CaesarService caesarService, TrithemiusService trithemiusService,
-            GammaService gammaService, KnapsackService knapsackService)
+            GammaService gammaService, KnapsackService knapsackService, RsaService rsaService)
         {
             _caesarService = caesarService;
             _trithemiusService = trithemiusService;
             _gammaService = gammaService;
             _knapsackService = knapsackService;
-
+            _rsaService = rsaService;
         }
 
         public async Task<IActionResult> CaesarCypher()
@@ -434,6 +435,96 @@ namespace Cryptology.Controllers
             }
 
             return View(knapsackViewModel);
+        }
+
+        public async Task<IActionResult> RsaCypher()
+        {
+            return View(new RsaViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RsaCypher(RsaViewModel rsaViewModel, string action)
+        {
+            if (action == "Encrypt")
+            {
+                var encryptResponse = await _rsaService.Encrypt(rsaViewModel);
+
+                if (encryptResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return View("RsaCypher", rsaViewModel);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = encryptResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "Decrypt")
+            {
+                var decryptResponse = await _rsaService.Decrypt(rsaViewModel);
+
+                if (decryptResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return View("RsaCypher", rsaViewModel);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = decryptResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "OpenFile")
+            {
+                var openfileResponse = await _rsaService.OpenFromFile(rsaViewModel.OpenFile);
+
+                if (openfileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = openfileResponse.StatusCode.ToString();
+                    return View("RsaCypher", openfileResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = openfileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "SaveFile")
+            {
+                var saveFileResponse = await _rsaService.SaveToFile(rsaViewModel);
+
+                if (saveFileResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = saveFileResponse.StatusCode.ToString();
+                    string filePath = "path_to_save_file.txt";
+                    byte[] fileContents = await System.IO.File.ReadAllBytesAsync(filePath);
+                    return File(fileContents, "text/plain", $"{DateTime.UtcNow} - result.txt");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = saveFileResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            else if (action == "FrequencyTable")
+            {
+                var frequencyTableResponse = await _rsaService.FrequencyTable(rsaViewModel);
+
+                if (frequencyTableResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = frequencyTableResponse.StatusCode.ToString();
+                    return View("RsaCypher", frequencyTableResponse.Data);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = frequencyTableResponse.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+
+            return View(rsaViewModel);
         }
     }
 }
